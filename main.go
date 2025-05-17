@@ -18,23 +18,31 @@ import (
 func main() {
 
 	logo := []string{
-		"  _____________________",
-		"  /                    \\",
-		"  |  .-----------.  |   |-----.",
-		"  |  |           |  |   |-=---|",
-		"  |  | Apple //c |  |   |-----|",
-		"  |  |           |  |   |-----|",
-		"  |  |           |  |   |-----|",
-		"  |  `-----------'  |   |-----'/\\",
-		"   \\________________/___     /  \\",
-		"      /                      / / /",
-		"     / //               //  / / /",
-		"    /                      / / /",
-		"   / _/_/_/_/_/_/_/_/_/_/ /   /",
-		"  / _/_/_/_/_/_/_/_/_/_/ /   /",
-		" / _/_/_/_______/_/_/_/ / __/",
-		"/______________________/ /    ",
-		"\\______________________/\\/",
+		"                        .8 ",
+		"                      .888",
+		"                    .8888'",
+		"                   .8888'",
+		"                   888'",
+		"                   8'",
+		"      .88888888888. .88888888888.",
+		"   .8888888888888888888888888888888.",
+		" .8888888888888888888888888888888888.",
+		".&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'",
+		"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'",
+		"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'",
+		"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:",
+		"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:",
+		"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:",
+		"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+		"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+		"`%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.",
+		" `00000000000000000000000000000000000'",
+		"  `000000000000000000000000000000000'",
+		"   `0000000000000000000000000000000'",
+		"     `###########################'",
+		"       `#######################'",
+		"         `#########''########'",
+		"           `\"\"\"\"\"\"'  `\"\"\"\"\"'",
 	}
 
 	user, hostname, operatingSystem, Architecture, v := userInformation()
@@ -44,16 +52,20 @@ func main() {
 	diskUsageUsed := round2Places(bytestoGB(int64(diskUsage.Used)))
 	networkInfo := networkInformation()
 
+	memTotal := round2Places(bytestoGB(int64(v.Total)))
+	memFree := round2Places(bytestoGB(int64(v.Free)))
+	memUsedPercentage := round2Places(float64((v.UsedPercent)))
+
 	info := []string{
 
 		fmt.Sprintf("\033[32mUser:\033[0m %s", user),
 		fmt.Sprintf("\033[32mHostname:\033[0m %s", hostname),
 		fmt.Sprintf("\033[32mOS:\033[0m %s", operatingSystem),
 		fmt.Sprintf("\033[32mArchitecture:\033[0m %s", Architecture),
-		fmt.Sprintf("\033[31mName:\033[0m %s", CPUBrand),
+		fmt.Sprintf("\033[31mCPU:\033[0m %s", CPUBrand),
 		fmt.Sprintf("\033[31mPhysical Cores:\033[0m %v", PhysicalCores),
 		fmt.Sprintf("\033[31mThreads Per Core:\033[0m %v", ThreadsPerCore),
-		fmt.Sprintf("\033[31mTotal:\033[0m %v, \033[31mFree:\033[0m %v, \033[31mUsedPercent:\033[0m %f%%", v.Total, v.Free, v.UsedPercent),
+		fmt.Sprintf("\033[31mMemory Total:\033[0m %v, \033[31mFree:\033[0m %v, \033[31mUsedPercent:\033[0m %f%%", memTotal, memFree, memUsedPercentage),
 		fmt.Sprintf("\033[33mDisk Total:\033[0m %v", diskUsageTotal),
 		fmt.Sprintf("\033[33mDisk Used:\033[0m %v", diskUsageUsed),
 		fmt.Sprintf("\033[34mNetwork Address:\033[0m %s", networkInfo.IP.String()),
